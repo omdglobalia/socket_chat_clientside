@@ -7,7 +7,6 @@ const ChatRoom = () => {
 
   const [message, setMessage] = useState("");
   const [allMessages, setAllMassages] = useState([]);
-  console.log("🚀 ~ file: ChatRoom.js:10 ~ ChatRoom ~ allMessages:", allMessages)
 
   const randomId = function (length = 6) {
     return Math.random()
@@ -33,7 +32,7 @@ const ChatRoom = () => {
     <div className="py-4 m-5 w-50 shadow bg-white text-dark border rounded container">
       <div className="text-center px-3 mb-4 text-capitalize">
         <h1 className="text-warning mb-4">{`${
-          state?.room.charAt(0).toUpperCase() + state?.room.slice(1)
+          (state?.room).charAt(0).toUpperCase() + state?.room.slice(1).replace("-", " ")
         } Chat Room`}</h1>
       </div>
       <div
@@ -41,7 +40,7 @@ const ChatRoom = () => {
         style={{ height: "450px", overflow: "scroll" }}
       >
         {allMessages.map((msg, index) => {
-          return (
+          return state?.name === msg.name ? (
             <div key={index} className="row justify-content-end pl-5">
               <div className="d-flex flex-column align-item-end m-2 shadow p-2 bg-info border rounded w-auto">
                 <div>
@@ -51,17 +50,18 @@ const ChatRoom = () => {
                 <h4 className="m-1">{msg?.message}</h4>
               </div>
             </div>
+          ) : (
+            <div className="row justify-content-start">
+              <div className="d-flex flex-column m-2 p-2 shadow bg-white border rounded w-auto">
+                <div>
+                  <strong className="m-1">Raj</strong>
+                  <small className="text-muted m-1">2 minutes ago</small>
+                </div>
+                <h4 className="m-1">Hello there</h4>
+              </div>
+            </div>
           );
         })}
-        <div className="row justify-content-start">
-          <div className="d-flex flex-column m-2 p-2 shadow bg-white border rounded w-auto">
-            <div>
-              <strong className="m-1">Raj</strong>
-              <small className="text-muted m-1">2 minutes ago</small>
-            </div>
-            <h4 className="m-1">Hello there</h4>
-          </div>
-        </div>
       </div>
       <form onSubmit={handleSubmit}>
         <div className="form-group d-flex">
